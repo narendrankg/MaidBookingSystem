@@ -29,3 +29,52 @@ WorkingHours
 
 BookingSlot
   startAt, endAt
+
+```
+
+## REQUESTS
+
+```text
+
+Maid onboarding:
+
+curl -X POST http://localhost:8080/maids \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Anita Sharma",
+    "locality": "Indiranagar",
+    "services": ["CLEANING"],
+    "skills": ["deep-cleaning"],
+    "hourlyPrice": 250.00,
+    "gender": "FEMALE",
+    "workingHours": [{"day":"MONDAY","startTime":"09:00","endTime":"18:00"}]
+  }'
+
+Booking Search:
+
+curl -X POST http://localhost:8080/maids/search \
+  -H "Content-Type: application/json" \
+  -d '{
+    "locality": "Indiranagar",
+    "minimumRating": 4.0,
+    "maximumHourlyPrice": 300,
+    "startAt": "2026-08-17T10:00:00Z",
+    "endAt": "2026-08-17T12:00:00Z"
+  }'
+
+Booking Creation:
+
+curl -X POST http://localhost:8080/bookings \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerId": "11111111-1111-1111-1111-111111111111",
+    "maidId": "{maidId}",
+    "startAt": "2026-08-17T10:00:00Z",
+    "endAt": "2026-08-17T12:00:00Z",
+    "amount": 500.00,
+    "currency": "INR"
+  }'
+
+Booking cancellation:
+
+curl -X DELETE http://localhost:8080/bookings/{bookingId}/cancellation
